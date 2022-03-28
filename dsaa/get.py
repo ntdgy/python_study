@@ -20,7 +20,7 @@ i = 0
 while True:
     if i > 10:
         break
-    subprocess.call("python3 lab4_1.py", shell=True)
+    subprocess.call("python3 cjx_3_27.py", shell=True)
     i1 = subprocess.getstatusoutput("./run <test.in >test.out")
     i2 = subprocess.getstatusoutput("./cmp <test.in >testcmp.out")
     if i1[0] != 0 or i2[0] != 0:

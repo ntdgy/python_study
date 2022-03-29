@@ -1,11 +1,15 @@
 import random
-
+import sqlite3
 import telebot
 
 bot = telebot.TeleBot("5161002873:AAEHhFHkUAk-WCQI38h477HaD2YAflPPUkw")
-with open('froster.txt', 'r') as f:
-    a = f.readlines()
-print(a)
+db = sqlite3.connect('file.db')
+cursor = db.cursor()
+a = []
+b = cursor.execute("SELECT Word FROM Words")
+for row in b:
+    a.append(row[0])
+
 
 
 @bot.message_handler(commands=['start', 'hello'])
@@ -23,8 +27,11 @@ def add(message):
     tmp = message.text.split(' ', 1)
     tmp = tmp[1]
     a.append(tmp)
-    with open('froster.txt', 'a') as f:
-        f.write(tmp + '\n')
+    cursor.execute("INSERT INTO Words VALUES ('" + tmp + "')")
+    db.commit()
+    #with open('froster.txt', 'a') as f:
+        #f.write(tmp + '\n')
+
     bot.reply_to(message, "Successfully added!")
 
 
@@ -32,6 +39,12 @@ def add(message):
 def sell(message):
     i = random.randint(0, len(a) - 1)
     bot.reply_to(message, a[i])
+    # bot.reply_to(message, "Frankss is our best seller!")
+
+@bot.message_handler(commands=['moew'])
+def moew(message):
+    i = ['Moew~','喵喵喵','真的要我Moew喵~']
+    bot.reply_to(message, i[random.randint(0,2)])
     # bot.reply_to(message, "Frankss is our best seller!")
 
 

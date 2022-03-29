@@ -10,6 +10,9 @@ b = cursor.execute("SELECT Word FROM Words")
 for row in b:
     a.append(row[0])
 
+meow = open('meow.txt', 'r')
+meow = meow.readlines()
+
 
 @bot.message_handler(commands=['start', 'hello'])
 def send_welcome(message):
@@ -30,6 +33,7 @@ def add(message):
     cursor1 = db1.cursor()
     cursor1.execute("INSERT INTO Words(word) VALUES ('" + tmp + "')")
     db1.commit()
+    db1.close()
     # with open('froster.txt', 'a') as f:
     # f.write(tmp + '\n')
 
@@ -55,8 +59,7 @@ def sell(message):
 
 @bot.message_handler(commands=['moew'])
 def moew(message):
-    i = ['Moew~', '喵喵喵', '真的要我Moew喵~']
-    bot.reply_to(message, i[random.randint(0, 2)])
+    bot.reply_to(message, meow[random.randint(0, len(meow) - 1)])
     # bot.reply_to(message, "Frankss is our best seller!")
 
 

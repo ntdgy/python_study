@@ -27,7 +27,9 @@ def add(message):
     tmp = message.text.split(' ', 1)
     tmp = tmp[1]
     a.append(tmp)
-    cursor.execute("INSERT INTO Words VALUES ('" + tmp + "')")
+    db1 = sqlite3.connect('file.db')
+    cursor1 = db1.cursor()
+    cursor1.execute("INSERT INTO Words VALUES ('" + tmp + "')")
     db.commit()
     #with open('froster.txt', 'a') as f:
         #f.write(tmp + '\n')

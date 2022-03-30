@@ -34,6 +34,12 @@ def add(message):
     cursor1.execute("INSERT INTO Words(word) VALUES ('" + tmp + "')")
     db1.commit()
     db1.close()
+    with open('countadd.txt', 'r') as f:
+        countadd = int(f.read())
+    countadd = countadd + 1
+    with open('countadd.txt', 'w') as f:
+        f.write(str(countadd))
+
     # with open('froster.txt', 'a') as f:
     # f.write(tmp + '\n')
 
@@ -45,7 +51,19 @@ def count(message):
     db1 = sqlite3.connect('file.db')
     cursor1 = db1.cursor()
     b1 = cursor1.execute('SELECT * FROM Words')
-    bot.reply_to(message, '已收集群友' + str(len(b1.fetchall())) + '条卖菜语录!')
+    with open('countadd.txt', 'r') as f:
+        countadd = int(f.read())
+    with open('countsell.txt', 'r') as f:
+        countsell = int(f.read())
+    with open('countmoew.txt', 'r') as f:
+        countmoew = int(f.read())
+    with open('countdgy.txt', 'r') as f:
+        countdgy = int(f.read())
+    bot.reply_to(message, '已收集群友' + str(len(b1.fetchall())) + '条卖菜语录!'
+                                                              '\n已卖出' + str(countsell) + '次菜'
+                                                                                         '\n已添加' + str(countadd) + '条卖菜语录'
+                    '\n已喵喵' + str(countmoew) + '次'
+                                               '\n已回复' + str(countdgy) + '条dgy语录')
     db1.commit()
     db1.close()
 
@@ -53,12 +71,22 @@ def count(message):
 @bot.message_handler(commands=['sell'])
 def sell(message):
     i = random.randint(0, len(a) - 1)
+    with open('countsell.txt', 'r') as f:
+        countsell = int(f.read())
+    countsell = countsell + 1
+    with open('countsell.txt', 'w') as f:
+        f.write(str(countsell))
     bot.reply_to(message, a[i])
     # bot.reply_to(message, "Frankss is our best seller!")
 
 
 @bot.message_handler(commands=['moew'])
 def moew(message):
+    with open('countmoew.txt', 'r') as f:
+        countmoew = int(f.read())
+    countmoew = countmoew + 1
+    with open('countmoew.txt', 'w') as f:
+        f.write(str(countmoew))
     bot.reply_to(message, meow[random.randint(0, len(meow) - 1)])
     # bot.reply_to(message, "Frankss is our best seller!")
 
@@ -66,6 +94,11 @@ def moew(message):
 @bot.message_handler(commands=['dgy'])
 def moew(message):
     i = ['喵喵喵www', '喵喵喵', 'qaq', '呜呜呜', '呜呜呜ww', '喵ww', '您', '呜呜呜', '我菜菜', '呜呜呜']
+    with open('countdgy.txt', 'r') as f:
+        countdgy = int(f.read())
+    countdgy = countdgy + 1
+    with open('countdgy.txt', 'w') as f:
+        f.write(str(countdgy))
     bot.reply_to(message, i[random.randint(0, 9)])
 
 

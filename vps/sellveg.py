@@ -55,14 +55,14 @@ def count(message):
         countadd = int(f.read())
     with open('countsell.txt', 'r') as f:
         countsell = int(f.read())
-    with open('countmoew.txt', 'r') as f:
-        countmoew = int(f.read())
+    with open('countmeow.txt', 'r') as f:
+        countmeow = int(f.read())
     with open('countdgy.txt', 'r') as f:
         countdgy = int(f.read())
     bot.reply_to(message, '已收集群友' + str(len(b1.fetchall())) + '条卖菜语录!'
                                                               '\n已卖出' + str(countsell) + '次菜'
                                                                                          '\n已添加' + str(countadd) + '条卖菜语录'
-                    '\n已喵喵' + str(countmoew) + '次'
+                    '\n已喵喵' + str(countmeow) + '次'
                                                '\n已回复' + str(countdgy) + '条dgy语录')
     db1.commit()
     db1.close()
@@ -80,13 +80,13 @@ def sell(message):
     # bot.reply_to(message, "Frankss is our best seller!")
 
 
-@bot.message_handler(commands=['moew'])
-def moew(message):
-    with open('countmoew.txt', 'r') as f:
-        countmoew = int(f.read())
-    countmoew = countmoew + 1
-    with open('countmoew.txt', 'w') as f:
-        f.write(str(countmoew))
+@bot.message_handler(commands=['meow'])
+def meow(message):
+    with open('countmeow.txt', 'r') as f:
+        countmeow = int(f.read())
+    countmeow = countmeow + 1
+    with open('countmeow.txt', 'w') as f:
+        f.write(str(countmeow))
     bot.reply_to(message, meow[random.randint(0, len(meow) - 1)])
     # bot.reply_to(message, "Frankss is our best seller!")
 

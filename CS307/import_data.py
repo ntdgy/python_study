@@ -2,6 +2,8 @@ import psycopg2
 import psycopg2.extras
 import String
 import time
+import pandas as pd
+import dask.dataframe as dd
 
 
 connection = psycopg2.connect(
@@ -14,10 +16,14 @@ connection = psycopg2.connect(
 connection.autocommit = True
 cursor = connection.cursor()
 
+
+def pre_process(file_name):
+    file = pd.read_csv(file_name, sep=',', header=None)
+    file.columns = []
+
+
 def copy_from_test(file_name, table_name):
     with open(file_name, 'r', encoding='utf-8') as f:
-        #for row in f:
-         #   print(row)
         cursor.copy_from(f, table_name, sep=',')
     connection.commit()
 

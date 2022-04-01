@@ -27,23 +27,22 @@ def send_welcome(message):
 @bot.message_handler(commands=['add'])
 def add(message):
     tmp = message.text.split(' ', 1)
-    tmp = tmp[1]
-    a.append(tmp)
-    db1 = sqlite3.connect('file.db')
-    cursor1 = db1.cursor()
-    cursor1.execute("INSERT INTO Words(word) VALUES ('" + tmp + "')")
-    db1.commit()
-    db1.close()
-    with open('countadd.txt', 'r') as f:
-        countadd = int(f.read())
-    countadd = countadd + 1
-    with open('countadd.txt', 'w') as f:
-        f.write(str(countadd))
-
-    # with open('froster.txt', 'a') as f:
-    # f.write(tmp + '\n')
-
-    bot.reply_to(message, "Successfully added!")
+    if len(tmp) == 2:
+        tmp = tmp[1]
+        a.append(tmp)
+        db1 = sqlite3.connect('file.db')
+        cursor1 = db1.cursor()
+        cursor1.execute("INSERT INTO Words(word) VALUES ('" + tmp + "')")
+        db1.commit()
+        db1.close()
+        with open('countadd.txt', 'r') as f:
+            countadd = int(f.read())
+        countadd = countadd + 1
+        with open('countadd.txt', 'w') as f:
+            f.write(str(countadd))
+        bot.reply_to(message, "Successfully added!")
+    else:
+        bot.reply_to(message, "请输入信息")
 
 
 @bot.message_handler(commands=['count'])
@@ -81,7 +80,7 @@ def sell(message):
 
 
 @bot.message_handler(commands=['meow'])
-def meow(message):
+def meow1(message):
     with open('countmeow.txt', 'r') as f:
         countmeow = int(f.read())
     countmeow = countmeow + 1
@@ -100,6 +99,82 @@ def moew(message):
     with open('countdgy.txt', 'w') as f:
         f.write(str(countdgy))
     bot.reply_to(message, i[random.randint(0, 9)])
+
+
+@bot.message_handler(commands=['record'])
+def record1(message):
+    tmp = message.text.split(' ', 1)
+    if len(tmp) == 2:
+        tmp = tmp[1]
+        db1 = sqlite3.connect('file.db')
+        cursor1 = db1.cursor()
+        cursor1.execute("INSERT INTO jichou(record) VALUES ('" + tmp + "')")
+        db1.commit()
+        db1.close()
+        with open('history.txt', 'a') as f:
+            f.write(tmp + '\n')
+        with open('countjichou.txt', 'r') as f:
+            countadd = int(f.read())
+        countadd = countadd + 1
+        with open('countjichou.txt', 'w') as f:
+            f.write(str(countadd))
+        bot.reply_to(message, "Successfully added!")
+    else:
+        bot.reply_to(message, "请输入信息")
+
+@bot.message_handler(commands=['getrecord'])
+def getrecord1(message):
+    db1 = sqlite3.connect('file.db')
+    cursor1 = db1.cursor()
+    cursor1.execute("select * from jichou")
+    db1.commit()
+    message1 = ''
+    i = 1
+    for row in cursor1.fetchall():
+        message1 = message1 + str(row[0]) + '. ' + row[1] + '\n'
+    if message1 == '':
+        bot.reply_to(message,'暂无记录')
+    else:
+        bot.reply_to(message, message1)
+    db1.close()
+
+@bot.message_handler(commands=['delrecord'])
+def getrecord1(message):
+    tmp = message.text.split(' ',1)
+    tmp = tmp[1]
+    if tmp.isdigit():
+        db1 = sqlite3.connect('file.db')
+        cursor1 = db1.cursor()
+        cursor1.execute("delete from jichou where id = " + tmp)
+        db1.commit()
+        if cursor1.rowcount == 1:
+            bot.reply_to(message, "Successfully deleted!")
+        else:
+            bot.reply_to(message, "No such record!")
+
+        db1.close()
+    else:
+        bot.reply_to(message, "待删除的记录序号必须为数字!")
+
+@bot.message_handler(commands=['resetrecord'])
+def getrecord1(message):
+    db1 = sqlite3.connect('file.db')
+    cursor1 = db1.cursor()
+    cursor1.execute("select * from jichou")
+    db1.commit()
+    message1 = ''
+    i = 1
+    for row in cursor1.fetchall():
+        message1 = message1 + str(row[0]) + '. ' + row[1] + '\n'
+    if message1 != '':
+        bot.reply_to(message, '数据库不为空，无法执行清空操作')
+    else:
+        cursor1.execute("drop table jichou")
+        db1.commit()
+        cursor1.execute('CREATE TABLE jichou( id INTEGER PRIMARY KEY, record TEXT)')
+        db1.commit()
+        bot.reply_to(message, '数据库已清空')
+    db1.close()
 
 
 bot.infinity_polling()

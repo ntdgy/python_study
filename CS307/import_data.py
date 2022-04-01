@@ -16,8 +16,6 @@ cursor = connection.cursor()
 
 def copy_from_test(file_name, table_name):
     with open(file_name, 'r', encoding='utf-8') as f:
-        #for row in f:
-         #   print(row)
         cursor.copy_from(f, table_name, sep=',')
     connection.commit()
 

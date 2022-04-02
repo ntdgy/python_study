@@ -2,7 +2,8 @@ import requests
 
 
 def sendMessage(message):
-    url = "https://tg.cf.sustc.icu/bot5110496404:AAFpJmyuBZPMTHZZU01GooDILT_3ghutkCQ/sendMessage?chat_id=-1001740652895&text="
+    #url = "https://tg.cf.sustc.icu/bot5110496404:AAFpJmyuBZPMTHZZU01GooDILT_3ghutkCQ/sendMessage?chat_id=-1001740652895&text="
+    url = "https://tg.cf.sustc.icu/bot5110496404:AAFpJmyuBZPMTHZZU01GooDILT_3ghutkCQ/sendMessage?chat_id=-1001620302112&text="
     r = requests.post(url + message)
     print(r.text)
 

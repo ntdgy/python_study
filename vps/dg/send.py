@@ -25,6 +25,8 @@ def main():
     sendMessage(text)
 
 
+
+
 if __name__ == '__main__':
     sendMessage('test')
-    print(sendDocument('file.db'))
+    print(sendDocument('../file.db'))

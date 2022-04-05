@@ -20,16 +20,32 @@ cursor = connection.cursor()
 
 
 def pre_process(file_name):
+    start_time = time.time()
     client_enterprise, director, salesman, \
         product, product_model, contract, contract_content=\
         csvMaker.make_contract_csv(file_name)
-    #cursor.copy_from(client_enterprise, 'client_enterprise', sep='|')
-    #cursor.copy_from(director, 'director', sep='|')
+    print("pre_process time is %s seconds ---" % (time.time() - start_time))
+    start_time = time.time()
+    cursor.copy_from(client_enterprise, 'client_enterprise', sep='|')
+    print("client_enterprise time is %s seconds ---" % (time.time() - start_time))
+    start_time = time.time()
+    cursor.copy_from(director, 'director', sep='|')
+    print("director time is %s seconds ---" % (time.time() - start_time))
+    start_time = time.time()
     cursor.copy_from(salesman, 'salesman', sep='|')
-    #cursor.copy_from(product, 'product', sep='|')
-    #cursor.copy_from(product_model, 'product_model', sep='|')
-    #cursor.copy_from(contract, 'contract', sep='|')
-    #cursor.copy_from(contract_content, 'contract_content', sep='|')
+    print("salesman time is %s seconds ---" % (time.time() - start_time))
+    start_time = time.time()
+    cursor.copy_from(product, 'product', sep='|')
+    print("product time is %s seconds ---" % (time.time() - start_time))
+    start_time = time.time()
+    cursor.copy_from(product_model, 'product_model', sep='|')
+    print("product_model time is %s seconds ---" % (time.time() - start_time))
+    start_time = time.time()
+    cursor.copy_from(contract, 'contract', sep='|')
+    print("contract time is %s seconds ---" % (time.time() - start_time))
+    start_time = time.time()
+    cursor.copy_from(contract_content, 'contract_content', sep='|')
+    print("contract_content time is %s seconds ---" % (time.time() - start_time))
     #print(client_enterprise)
     # copy_from_test(client_enterprise, 'client_enterprise')
     # copy_from_test(director, 'director')
@@ -42,11 +58,13 @@ def pre_process(file_name):
 
 
 def copy_from_test(file_name, table_name):
-
-    cursor.copy_from(file_name, table_name, sep='|')
+    with open(file_name, 'r') as f:
+        f.readline()
+        cursor.copy_from(f, table_name, sep=',')
     connection.commit()
 
 start = time.time()
-pre_process('tt.csv')
+pre_process('contract_info.csv')
+#copy_from_test('contract_info.csv','testdata')
 end = time.time()
-print(end - start)
+print('total time:'+str(end - start - 6))

@@ -5,14 +5,22 @@ import String
 import time
 import pandas as pd
 import csvMaker
+import csvtest
 
 
 
+# connection = psycopg2.connect(
+#     host="42.194.178.20",
+#     port="5432",
+#     database="project1",
+#     user="checker",
+#     password='xtny38206',
+# )
 connection = psycopg2.connect(
-    host="42.194.178.20",
+    host="localhost",
     port="5432",
     database="project1",
-    user="checker",
+    user="dgy",
     password='xtny38206',
 )
 connection.autocommit = True
@@ -23,7 +31,7 @@ def pre_process(file_name):
     start_time = time.time()
     client_enterprise, director, salesman, \
         product, product_model, contract, contract_content=\
-        csvMaker.make_contract_csv(file_name)
+        csvtest.make_contract_csv(file_name)
     print("pre_process time is %s seconds ---" % (time.time() - start_time))
     start_time = time.time()
     cursor.copy_from(client_enterprise, 'client_enterprise', sep='|')
@@ -67,4 +75,4 @@ start = time.time()
 pre_process('contract_info.csv')
 #copy_from_test('contract_info.csv','testdata')
 end = time.time()
-print('total time:'+str(end - start - 6))
+print('total time:'+str(end - start))

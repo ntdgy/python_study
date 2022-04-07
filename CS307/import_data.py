@@ -29,16 +29,17 @@ cursor = connection.cursor()
 
 def pre_process(file_name):
     start_time = time.time()
-    client_enterprise, director, salesman, \
+    supply_center,client_enterprise,  salesman, \
         product, product_model, contract, contract_content=\
-        csvtest.make_contract_csv(file_name)
+        csvMaker.make_contract_csv(file_name)
     print("pre_process time is %s seconds ---" % (time.time() - start_time))
+    time1 = time.time()
+    start_time = time.time()
+    cursor.copy_from(supply_center, 'supply_center', sep='|')
+    print("director time is %s seconds ---" % (time.time() - start_time))
     start_time = time.time()
     cursor.copy_from(client_enterprise, 'client_enterprise', sep='|')
     print("client_enterprise time is %s seconds ---" % (time.time() - start_time))
-    start_time = time.time()
-    cursor.copy_from(director, 'director', sep='|')
-    print("director time is %s seconds ---" % (time.time() - start_time))
     start_time = time.time()
     cursor.copy_from(salesman, 'salesman', sep='|')
     print("salesman time is %s seconds ---" % (time.time() - start_time))
@@ -54,6 +55,7 @@ def pre_process(file_name):
     start_time = time.time()
     cursor.copy_from(contract_content, 'contract_content', sep='|')
     print("contract_content time is %s seconds ---" % (time.time() - start_time))
+    print("total import time is %s seconds ---" % (time.time() - time1))
     #print(client_enterprise)
     # copy_from_test(client_enterprise, 'client_enterprise')
     # copy_from_test(director, 'director')

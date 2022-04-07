@@ -6,7 +6,7 @@ def shend_icmp_packet(ip_address,times):
         response = subprocess.getstatusoutput('ping -c ' + times + ' '+ ip_address)
         response = response[1]
         # 取出丢包率
-        lost = response[response.index("%")-2:response.index("%")]
+        lost = response[response.index("ved,"):response.index("%")]
         #取出指定的延时字符串
         res = list(response)
         index = 0

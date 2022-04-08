@@ -23,6 +23,10 @@ def main():
     sport20 = sport20.split()
     nowdata = subprocess.getstatusoutput("/usr/sbin/ip6tables -n -v -x -L -t filter | grep spt:10020 | awk '{print $2}'")
     sport20 = int(sport20[1]) + int(nowdata[1])
+    sport21 = f.readline()
+    sport21 = sport21.split()
+    nowdata = subprocess.getstatusoutput("/usr/sbin/ip6tables -n -v -x -L -t filter | grep spt:10021 | awk '{print $2}'")
+    sport21 = int(sport21[1]) + int(nowdata[1])
     dport11 = f.readline()
     dport11 = dport11.split()
     nowdata = subprocess.getstatusoutput("/usr/sbin/ip6tables -n -v -x -L -t filter | grep dpt:10011 | awk '{print $2}'")
@@ -39,6 +43,10 @@ def main():
     dport20 = dport20.split()
     nowdata = subprocess.getstatusoutput("/usr/sbin/ip6tables -n -v -x -L -t filter | grep dpt:10020 | awk '{print $2}'")
     dport20 = int(dport20[1]) + int(nowdata[1])
+    dport21 = f.readline()
+    dport21 = dport21.split()
+    nowdata = subprocess.getstatusoutput("/usr/sbin/ip6tables -n -v -x -L -t filter | grep dpt:10021 | awk '{print $2}'")
+    dport21 = int(dport21[1]) + int(nowdata[1])
     subprocess.call("/usr/sbin/ip6tables -Z INPUT 1", shell=True)
     subprocess.call("/usr/sbin/ip6tables -Z OUTPUT 1", shell=True)
     subprocess.call("/usr/sbin/ip6tables -Z INPUT 2", shell=True)
@@ -47,6 +55,8 @@ def main():
     subprocess.call("/usr/sbin/ip6tables -Z OUTPUT 3", shell=True)
     subprocess.call("/usr/sbin/ip6tables -Z INPUT 4", shell=True)
     subprocess.call("/usr/sbin/ip6tables -Z OUTPUT 4", shell=True)
+    subprocess.call("/usr/sbin/ip6tables -Z INPUT 5", shell=True)
+    subprocess.call("/usr/sbin/ip6tables -Z OUTPUT 5", shell=True)
     f.close()
     subprocess.getstatusoutput("rm -rf /root/bandwidth/bandwidth.txt")
     f = open('/root/bandwidth/bandwidth.txt', 'w')
@@ -55,14 +65,17 @@ def main():
     f.write('Out:10015 ' + str(sport15) + '\n')
     f.write('Out:10019 ' + str(sport19) + '\n')
     f.write('Out:10020 ' + str(sport20) + '\n')
+    f.write('Out:10021 ' + str(sport21) + '\n')
     f.write('In:10011 ' + str(dport11) + '\n')
     f.write('In:10015 ' + str(dport15) + '\n')
     f.write('In:10019 ' + str(dport19) + '\n')
     f.write('In:10020 ' + str(dport20) + '\n')
+    f.write('In:10021 ' + str(dport21) + '\n')
     sum11 = sport11 + dport11
     sum15 = sport15 + dport15
     sum19 = sport19 + dport19
     sum20 = sport20 + dport20
+    sum21 = sport21 + dport21
     if sum11 < 1073741824:
         f.write('Frankss: ' + str(sum11/1048576) + 'Mb\n')
     else:
@@ -79,6 +92,10 @@ def main():
         f.write('Froster: ' + str(sum20 / 1048576) + 'Mb\n')
     else:
         f.write('Froster: ' + str(sum20 / 1073741824) + 'Gb\n')
+    if sum21 < 1073741824:
+        f.write('zjj: ' + str(sum21 / 1048576) + 'Mb\n')
+    else:
+        f.write('zjj: ' + str(sum21 / 1073741824) + 'Gb\n')
     f.close()
 
 

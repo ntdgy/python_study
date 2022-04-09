@@ -143,6 +143,7 @@ def create_client_enterprise(num: int, supply_center_list: list):
         client_enterprise_json['client enterprise'] = name
         supply_center = random.choice(supply_center_list)
         client_enterprise_json['director'] = supply_center['director']
+        client_enterprise_json['supply center'] = supply_center['supply_center']
         supply_center = supply_center['supply_center']
         client_enterprise_json['country'] = random.choice(supply_center_country[supply_center])
         if client_enterprise_json['country'] == 'China':
@@ -150,7 +151,6 @@ def create_client_enterprise(num: int, supply_center_list: list):
         else:
             client_enterprise_json['city'] = 'NULL'
         client_enterprise_json['industry'] = random.choice(industry)
-        client_enterprise_json['supply center'] = supply_center
         client_enterprise.append(client_enterprise_json)
     return client_enterprise
 
@@ -212,7 +212,7 @@ def create_contract(num: int, client_enterprise_list: list):
         contract_json['country'] = temp['country']
         contract_json['city'] = temp['city']
         contract_json['industry'] = temp['industry']
-        contract_json['supply_center'] = temp['supply center']
+        contract_json['supply center'] = temp['supply center']
         contract_json['director'] = temp['director']
         contract_json['contract'] = 'CSE' + str.zfill(str(i0), 7)
         contract_json['contract_date'] = create_date()
@@ -309,12 +309,12 @@ def create_lodgement_date():
     date = time.strftime("%Y-%m-%d", date_touple)  # 将时间元组转成格式化字符串（1976-05-21）
     return date
 
-supply_center = create_supply_center(10)
-client_enterprice = create_client_enterprise(5, supply_center)
-contract_list = create_contract(4, client_enterprice)
-product_file = create_product(10)
-product_model_list = create_product_model(20,product_file)
-sale_list = create_salesman(10)
+supply_center = create_supply_center(10000)
+client_enterprice = create_client_enterprise(50000, supply_center)
+contract_list = create_contract(40000, client_enterprice)
+product_file = create_product(100000)
+product_model_list = create_product_model(2000000,product_file)
+sale_list = create_salesman(100000)
 csv = create_contract_content(contract_list, product_model_list, sale_list)
 data_df = pd.DataFrame(csv)
 data_df.to_csv('data.csv', index=False)

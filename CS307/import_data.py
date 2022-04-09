@@ -74,7 +74,7 @@ def copy_from_test(file_name, table_name):
     connection.commit()
 
 start = time.time()
-pre_process('contract_info.csv')
+pre_process('data.csv')
 #copy_from_test('contract_info.csv','testdata')
 end = time.time()
 print('total time:'+str(end - start))

@@ -25,7 +25,7 @@ def read_client_enterprise() -> list:
 def read_contract() -> list:
     sql = []
     order = '''insert into contract(id,number,client_enterprise_id,contract_date) 
-                    values ({},'{}',{},'{}');'''
+                    values ({},{},{},{});'''
     contract = readfile('contract.csv')
     for index, row in contract.iterrows():
         sql.append(order.format(row[0], row[1], row[2], row[3]))

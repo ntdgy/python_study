@@ -163,12 +163,15 @@ def create_salesman(num: int):
     # random.shuffle(number)
     # phone_number = list(range(12000000000, 17899999999))
     # random.shuffle(phone_number)
+    number1 = list(range(11000000, 19999999))
+    random.shuffle(number1)
     for i0 in range(num):
-        while True:
-            num = random.randint(11000000, 19999999)
-            if num not in number_set:
-                number_set.add(num)
-                break
+
+        # while True:
+        #     num = random.randint(11000000, 19999999)
+        #     if num not in number_set:
+        #         number_set.add(num)
+        #         break
         while True:
             phone = random.randint(12000000000, 17899999999)
             if phone not in phone_set:
@@ -177,7 +180,7 @@ def create_salesman(num: int):
 
         salesman_json = {
             'name': '',
-            'number': num,
+            'number': number1.pop(),
             'phone': phone,
             'age': random.randint(18, 60),
             'gender': random.choice(gender)
@@ -296,7 +299,7 @@ def create_date():
     end_time = time.mktime(end1)
     t = random.randint(start_time, end_time)  # 在开始和结束时间戳中随机取出一个
     date_touple = time.localtime(t)  # 将时间戳生成时间元组
-    date = time.strftime("%Y-%m-%d", date_touple)  # 将时间元组转成格式化字符串（1976-05-21）
+    date = time.strftime("%Y-%m-%d", date_touple)
     return date
 
 def create_lodgement_date():
@@ -309,12 +312,15 @@ def create_lodgement_date():
     date = time.strftime("%Y-%m-%d", date_touple)  # 将时间元组转成格式化字符串（1976-05-21）
     return date
 
-supply_center = create_supply_center(10000)
-client_enterprice = create_client_enterprise(50000, supply_center)
-contract_list = create_contract(40000, client_enterprice)
-product_file = create_product(100000)
-product_model_list = create_product_model(2000000,product_file)
-sale_list = create_salesman(100000)
+supply_center = create_supply_center(1000000)
+client_enterprice = create_client_enterprise(5000000, supply_center)
+del supply_center
+contract_list = create_contract(4000000, client_enterprice)
+del client_enterprice
+product_file = create_product(10000000)
+product_model_list = create_product_model(200000000,product_file)
+del product_file
+sale_list = create_salesman(10000000)
 csv = create_contract_content(contract_list, product_model_list, sale_list)
 data_df = pd.DataFrame(csv)
 data_df.to_csv('data.csv', index=False)

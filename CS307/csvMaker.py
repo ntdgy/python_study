@@ -18,7 +18,7 @@ def make_contract_csv(path: str) -> Tuple[io.StringIO, io.StringIO, io.StringIO,
                                           io.StringIO, io.StringIO, io.StringIO]:
     global csv_file
     start = time.time()
-    file = pd.read_csv(path, sep=',', header=1)
+    file = pd.read_csv(path, sep=',')
     print(f'Time to read file: {time.time() - start}')
     file.fillna(value='\\N', inplace=True)
 
@@ -106,15 +106,16 @@ def make_contract_csv(path: str) -> Tuple[io.StringIO, io.StringIO, io.StringIO,
             product_serial += 1
 
 
-        product_model.write('|'.join(map(clean_csv_value, (
-            product_model_serial,
-            product_dict[row[6]],  # product_model_id
-            row[8],  # product_model_name
-            row[9],  # unit price
-        ))) + '\n')
-        product_model_set.add(row[8])
-        product_model_dict[row[8]] = product_model_serial
-        product_model_serial += 1
+        if row[8] not in product_model_set:
+            product_model.write('|'.join(map(clean_csv_value, (
+                product_model_serial,
+                product_dict[row[6]],  # product_model_id
+                row[8],  # product_model_name
+                row[9],  # unit price
+            ))) + '\n')
+            product_model_set.add(row[8])
+            product_model_dict[row[8]] = product_model_serial
+            product_model_serial += 1
 
         if row[0] not in contract_set:
             contract.write('|'.join(map(clean_csv_value, (

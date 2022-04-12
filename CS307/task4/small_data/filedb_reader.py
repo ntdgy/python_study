@@ -15,12 +15,11 @@ def read_client_enterprise() -> list:
     Each tuple contains the client_id and the enterprise_id.
     """
     sql = []
+    order = '''insert into client_enterprise(id,name,supply_center_id,country,city,industry) 
+                        values ({}, {}, {},{},{},{});'''
     client_enterprise = readfile('client_enterprise.csv')
     for index, row in client_enterprise.iterrows():
-        sql.append('''insert into client_enterprise(id,name,supply_center_id,country,city,industry) 
-                        values (
-                        %s, 
-                        '%s', %s,'%s','%s','%s');''' % (row[0], row[1], row[2], row[3], row[4], row[5]))
+        sql.append(order.format(row[0], row[1], row[2], row[3], row[4], row[5]))
     return sql
 
 def read_contract() -> list:
@@ -70,10 +69,11 @@ def read_salesman() -> list:
 
 def read_supply_center() -> list:
     sql = []
+    order = '''insert into supply_center(id,director_name,supply_center) 
+                    values ({},'{}','{}');'''
     supply_center = readfile('supply_center.csv')
     for index, row in supply_center.iterrows():
-        sql.append('''insert into supply_center(id,director_name,supply_center) 
-                    values (%s,'%s','%s');''' % (row[0], row[1], row[2]))
+        sql.append(order.format(row[0], row[1], row[2]))
     return sql
 
 

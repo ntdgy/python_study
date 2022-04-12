@@ -6,7 +6,8 @@ def readfile(filename):
     Reads a csv file and returns a pandas dataframe.
     """
     file = pd.read_csv(filename,sep='|',header=None)
-    file.fillna(value='\\N', inplace=True)
+    #file.fillna(value='null', inplace=True)
+    file.replace('\\N', 'null', inplace=True)
     return file
 
 def read_client_enterprise() -> list:
@@ -17,10 +18,7 @@ def read_client_enterprise() -> list:
     sql = []
     client_enterprise = readfile('client_enterprise.csv')
     for index, row in client_enterprise.iterrows():
-        sql.append('''insert into client_enterprise(id,name,supply_center_id,country,city,industry) 
-                        values (
-                        %s, 
-                        '%s', %s,'%s','%s','%s');''' % (row[0], row[1], row[2], row[3], row[4], row[5]))
+        sql.append('''insert into client_enterprise(id,name,supply_center_id,country,city,industry) values (%s, '%s', %s,'%s','%s','%s');''' % (row[0], row[1], row[2], row[3], row[4], row[5]))
     return sql
 
 def read_contract() -> list:
@@ -35,16 +33,18 @@ def read_contract() -> list:
 def read_contract_content() -> list:
     sql = []
     order = '''insert into contract_content(id,contract_id,product_model_id,quantity,estimated_delivery_date,lodgement_date,salesman_id) 
-                    values ({},{},{},{},'{}','{}',{});'''
+                    values ({},{},{},{},'{}',{},{});'''
     contract_content = readfile('contract_content.csv')
     for index, row in contract_content.iterrows():
+        if row[5] != 'null':
+            row[5] = "'"+row[5]+"'"
         sql.append(order.format(row[0], row[1], row[2], row[3], row[4], row[5], row[6]))
     return sql
 
 def read_product() -> list:
     sql = []
     order = '''insert into product(id,product_code,product_name) 
-                    values ({}，'{}'，'{}');'''
+                    values ({},'{}','{}');'''
     product = readfile('product.csv')
     for index, row in product.iterrows():
         sql.append(order.format(row[0], row[1], row[2]))
@@ -52,8 +52,8 @@ def read_product() -> list:
 
 def read_product_model() -> list:
     sql = []
-    order = '''insert into product_model(id,product_id,model_code,model_name) 
-                    values ({},{},"{}",{});'''
+    order = '''insert into product_model(id,product_id,product_model,unit_price) 
+                    values ({},{},'{}',{});'''
     product_model = readfile('product_model.csv')
     for index, row in product_model.iterrows():
         sql.append(order.format(row[0], row[1], row[2], row[3]))

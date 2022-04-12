@@ -312,15 +312,15 @@ def create_lodgement_date():
     date = time.strftime("%Y-%m-%d", date_touple)  # 将时间元组转成格式化字符串（1976-05-21）
     return date
 
-supply_center = create_supply_center(1000000)
-client_enterprice = create_client_enterprise(5000000, supply_center)
+supply_center = create_supply_center(10)
+client_enterprice = create_client_enterprise(50, supply_center)
 del supply_center
-contract_list = create_contract(4000000, client_enterprice)
+contract_list = create_contract(40, client_enterprice)
 del client_enterprice
-product_file = create_product(10000000)
-product_model_list = create_product_model(200000000,product_file)
+product_file = create_product(100)
+product_model_list = create_product_model(200,product_file)
 del product_file
-sale_list = create_salesman(10000000)
+sale_list = create_salesman(100)
 csv = create_contract_content(contract_list, product_model_list, sale_list)
 data_df = pd.DataFrame(csv)
-data_df.to_csv('data.csv', index=False)
+data_df.to_csv('data_smaill.csv', index=False)

@@ -16,9 +16,9 @@ supply_center_country = {
     'Antarctica': ['Antarctica'],
 }
 
-china_cities = ['Shanghai', 'Shenzhen', 'Beijing', 'Guangzhou', 'Chengdu', 'Wuhan', 'Hangzhou', 'Nanjing', 'Xi\'an',
+china_cities = ['Shanghai', 'Shenzhen', 'Beijing', 'Guangzhou', 'Chengdu', 'Wuhan', 'Hangzhou', 'Nanjing',
                 'Chongqing', 'Kunming',
-                'Nanjing', 'Changsha', 'Wuxi', 'Hai\'an', 'Changchun', 'Dalian', 'Qingdao', 'Fuzhou', 'Jinan',
+                'Nanjing', 'Changsha', 'Wuxi', 'Changchun', 'Dalian', 'Qingdao', 'Fuzhou', 'Jinan',
                 'Zhengzhou', 'Ningbo', 'Wuhan',
                 'Nantong', 'Nanchang']
 
@@ -312,15 +312,15 @@ def create_lodgement_date():
     date = time.strftime("%Y-%m-%d", date_touple)  # 将时间元组转成格式化字符串（1976-05-21）
     return date
 
-supply_center = create_supply_center(10)
-client_enterprice = create_client_enterprise(50, supply_center)
+supply_center = create_supply_center(10000)
+client_enterprice = create_client_enterprise(500000, supply_center)
 del supply_center
-contract_list = create_contract(40, client_enterprice)
+contract_list = create_contract(1000000, client_enterprice)
 del client_enterprice
-product_file = create_product(100)
-product_model_list = create_product_model(200,product_file)
+product_file = create_product(100000)
+product_model_list = create_product_model(200000,product_file)
 del product_file
-sale_list = create_salesman(100)
+sale_list = create_salesman(100000)
 csv = create_contract_content(contract_list, product_model_list, sale_list)
 data_df = pd.DataFrame(csv)
-data_df.to_csv('data_smaill.csv', index=False)
+data_df.to_csv('data_huge.csv', index=False)

@@ -1,2 +1,5 @@
-*.csv
-*.db
+CS307/*.csv
+CS307/task4/*.csv
+CS307/task4/*/*.csv
+CS307/task4/*.db
+CS307/task4/*/*.db

@@ -4,6 +4,7 @@ import pgsql_reader
 import innitial
 import fileDBMS
 import filedb_reader
+import pymysql
 
 def test_file():
     a = fileDBMS.DBMS('test1.json')
@@ -74,7 +75,7 @@ def test_pgsql():
     connection.autocommit = True
     cursor = connection.cursor()
 
-    cursor.execute(innitial.sql)
+    cursor.execute(innitial.pgsql)
 
     start1 = time.time()
     start = time.time()
@@ -127,6 +128,20 @@ def test_pgsql():
     print("PGSQL Contract Content: ", end - start)
     end1 = time.time()
     print("PGSQL: ", end1 - start1)
+
+def test_mysql():
+    connection = pymysql.connect(
+        host="localhost",
+        port=3306,
+        user="dgy",
+        password='xtny38206',
+        database="project1_tesk4",
+        charset='utf8mb4',
+        cursorclass=pymysql.cursors.DictCursor
+    )
+    connection.autocommit = True
+    cursor = connection.cursor()
+
 
 
 if __name__ == '__main__':

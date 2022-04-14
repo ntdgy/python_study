@@ -252,6 +252,7 @@ def test_sqlite_insert():
     end1 = time.time()
     print("SQLITE: ", end1 - start1)
 
+
 if __name__ == '__main__':
     test_file_insert()
     test_pgsql_insert()

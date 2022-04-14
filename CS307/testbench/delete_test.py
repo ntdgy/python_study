@@ -9,7 +9,7 @@ def generate_delete_test()->list:
         '''%(random.randint(1, 100000)))
     return delete_test
 
-def test_delete(cursor, delete_test:list,string:str):
+def test_delete( delete_test:list,cursor,string:str):
     start = time.time()
     for i in delete_test:
         cursor.execute(i)

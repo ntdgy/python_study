@@ -47,6 +47,10 @@ if __name__ == '__main__':
     update_test_contract_content = upd.generate_update_test_contract_content()
     delete_test = delt.generate_delete_test()
 
+    pgsql = pgsql.cursor()
+    mysql = mysql.cursor()
+
+
     file_db_start = time.time()
     print('Start testing...')
     print("Start testing fileDB...")
@@ -56,6 +60,59 @@ if __name__ == '__main__':
     sel.test_select(select_supply_center,select_client_enterprise,select_test_salesman,select_test_product,
                     select_test_product_model,select_test_contract,select_test_contract_content,filedb,'fileDB')
     print("Testing update...")
-    upd
+    upd.test_update(update_test_supply_cente,update_test_client_enterprise,update_test_salesman,update_test_product,
+                    update_test_product_model,update_test_contract,update_test_contract_content,filedb,'fileDB')
+    print("Testing delete...")
+    delt.test_delete(delete_test,filedb,'fileDB')
+    file_db_end = time.time()
+    print("Testing fileDB finished.")
+
+    print("Start testing pgsql...")
+    pgsql_start = time.time()
+    print("Testing insert...")
+    imp.test_pgsql_insert(pgsql)
+    print("Testing select...")
+    sel.test_select(select_supply_center,select_client_enterprise,select_test_salesman,select_test_product,
+                    select_test_product_model,select_test_contract,select_test_contract_content,pgsql,'pgsql')
+    print("Testing update...")
+    upd.test_update(update_test_supply_cente,update_test_client_enterprise,update_test_salesman,update_test_product,
+                    update_test_product_model,update_test_contract,update_test_contract_content,pgsql,'pgsql')
+    print("Testing delete...")
+    delt.test_delete(delete_test,pgsql,'pgsql')
+    pgsql_end = time.time()
+    print("Testing pgsql finished.")
+
+    print("Start testing mysql...")
+    mysql_start = time.time()
+    print("Testing insert...")
+    imp.test_mysql_insert(mysql)
+    print("Testing select...")
+    sel.test_select(select_supply_center,select_client_enterprise,select_test_salesman,select_test_product,
+                    select_test_product_model,select_test_contract,select_test_contract_content,mysql,'mysql')
+    print("Testing update...")
+    upd.test_update(update_test_supply_cente,update_test_client_enterprise,update_test_salesman,update_test_product,
+                    update_test_product_model,update_test_contract,update_test_contract_content,mysql,'mysql')
+    print("Testing delete...")
+    delt.test_delete(delete_test,mysql,'mysql')
+    mysql_end = time.time()
+    print("Testing mysql finished.")
+
+    print("Start testing sqlite...")
+    sqlite_start = time.time()
+    print("Testing insert...")
+    imp.test_sqlite_insert(sqlite)
+    print("Testing select...")
+    sel.test_select(select_supply_center,select_client_enterprise,select_test_salesman,select_test_product,
+                    select_test_product_model,select_test_contract,select_test_contract_content,sqlite,'sqlite')
+    print("Testing update...")
+    upd.test_update(update_test_supply_cente,update_test_client_enterprise,update_test_salesman,update_test_product,
+                    update_test_product_model,update_test_contract,update_test_contract_content,sqlite,'sqlite')
+    print("Testing delete...")
+    delt.test_delete(delete_test,sqlite,'sqlite')
+    sqlite_end = time.time()
+    print("Testing sqlite finished.")
+
+    print('Finished!')
+
 
 

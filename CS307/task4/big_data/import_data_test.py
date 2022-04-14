@@ -4,6 +4,8 @@ import pgsql_reader
 import innitial
 import fileDBMS
 import filedb_reader
+import select_test
+import update_test
 import pymysql
 import sqlite3
 

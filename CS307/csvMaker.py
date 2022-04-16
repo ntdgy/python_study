@@ -1,11 +1,7 @@
 import io
-import threading
-from StringIteratorIO import StringIteratorIO
 from typing import Any, Dict, List, Optional, Tuple
-import csv
 import pandas as pd
 import time
-import numpy as np
 
 
 def clean_csv_value(value: Optional[Any]) -> str:

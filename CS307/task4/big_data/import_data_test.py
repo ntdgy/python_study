@@ -70,7 +70,6 @@ def test_pgsql_insert(connection):
     #     user="dgy",
     #     password='xtny38206',
     # )
-    connection.autocommit = True
     cursor = connection.cursor()
 
     cursor.execute(innitial.pgsql)
@@ -137,7 +136,6 @@ def test_mysql_insert(connection):
     #     charset='utf8mb4',
     #     cursorclass=pymysql.cursors.DictCursor
     # )
-    connection.autocommit = True
     cursor = connection.cursor()
 
     cursor.execute(innitial.mysql)
@@ -249,7 +247,6 @@ def test_sqlite_insert(connection):
     print("SQLITE Contract Content: ", end - start)
     end1 = time.time()
     print("SQLITE: ", end1 - start1)
-
 
 
 

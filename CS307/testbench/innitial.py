@@ -71,7 +71,8 @@ create table contract_content
 
 '''
 
-mysql = '''drop table if exists contract_content cascade;
+mysql = '''
+drop table if exists contract_content cascade;
 drop table if exists contract cascade;
 drop table if exists product_model cascade;
 drop table if exists salesman cascade;
@@ -131,10 +132,10 @@ create table contract
     client_enterprise_id int,
     -- client_enterprise_id int references client_enterprise (id) not null ,
     contract_date        date        not null,
-    estimated_delivery   date,
-    director_id int ,
+    -- estimated_delivery   date,
+    -- director_id int ,
     foreign key (client_enterprise_id) references client_enterprise(id),
-    foreign key (director_id) references supply_center(id),
+    -- foreign key (director_id) references supply_center(id),
     -- director_id          int references supply_center (id),
     unique (id, number)
 );

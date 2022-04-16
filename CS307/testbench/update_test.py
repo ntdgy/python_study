@@ -12,67 +12,67 @@ def getname() -> str:
         'e', 'd', 'c', 'b', 'a'], i1))
     return name
 
+#update 7k
 
 def generate_update_test_supply_center() -> list:
     update_test = []
-    for i in range(0, 10):
+    for i in range(0, 1000):
         name = getname()
         update_test.append(
             '''
-            update supply_center set director_name = %s where id = %d;''' % (name, random.randint(1, 93632)))
+            update supply_center set director_name = '%s' where id = %d;''' % (name, random.randint(1, 93632)))
     return update_test
 
 def generate_update_test_client_enterprise() -> list:
     update_test = []
-    for i in range(0, 10):
+    for i in range(0, 1000):
         name = getname()
         update_test.append(
             '''
-            update client_enterprise set name = %s where id = %d;''' % (name, random.randint(1, 275302)))
+            update client_enterprise set name = '%s' where id = %d;''' % (name, random.randint(1, 275302)))
     return update_test
 
 def generate_update_test_salesman() -> list:
     update_test = []
-    for i in range(0, 10):
+    for i in range(0, 1000):
         name = getname()
         update_test.append(
             '''
-            update salesman set name = %s where id = %d;''' % (name, random.randint(1, 972749)))
+            update salesman set name = '%s' where id = %d;''' % (name, random.randint(1, 972749)))
     return update_test
 
 def generate_update_test_product() -> list:
     update_test = []
-    for i in range(0, 10):
+    for i in range(0, 1000):
         name = getname()
         update_test.append(
             '''
-            update product set name = %s where id = %d;''' % (name, random.randint(1, 962787)))
+            update product set product_name = '%s' where id = %d;''' % (name, random.randint(1, 962787)))
     return update_test
 
 def generate_update_test_product_model() -> list:
     update_test = []
-    for i in range(0, 10):
+    for i in range(0, 1000):
         name = getname()
         update_test.append(
             '''
-            update product_model set name = %s where id = %d;''' % (name, random.randint(1, 3597940)))
+            update product_model set product_model = '%s' where id = %d;''' % (name, random.randint(1, 3597940)))
     return update_test
 
 def generate_update_test_contract() -> list:
     update_test = []
-    for i in range(0, 10):
-        name = getname()
+    for i in range(0, 1000):
         update_test.append(
             '''
-            update contract set name = %s where id = %d;''' % (name, random.randint(1, 400000)))
+            update contract set client_enterprise_id = %d where id = %d;''' % (random.randint(1,10), random.randint(1, 400000)))
     return update_test
 
 def generate_update_test_contract_content() -> list:
     select_test = []
-    for i in range(0, 10):
+    for i in range(0, 1000):
         select_test.append(
             '''
-            select * from contract_content where id = %d;''' % random.randint(1, 3597940))
+            update contract_content set quantity = %d where id = %d''' % (random.randint(1, 1000), random.randint(1, 400000)))
     return select_test
 
 def test_update(update_supply_center: list, update_client_enterprise: list, update_salesman: list,

@@ -1,0 +1,157 @@
+import pymysql
+import psycopg2.extras
+import sqlite3
+import time
+import fileDB.Client as fileDB
+import import_data_test as imp
+import select_test as sel
+import update_test as upd
+import delete_test as delt
+
+def create_connection():
+    filedb = fileDB.DBMSClient('anshang', '123456')
+    pgsql = psycopg2.connect(
+        host="localhost",
+        port="5432",
+        database="task4_test",
+        user="dgy",
+        password='xtny38206',
+    )
+    pgsql.autocommit = True
+    mysql = pymysql.connect(
+        host="42.194.178.20",
+        port=3306,
+        user="dgy",
+        password='xtny38206',
+        database="cs307",
+        charset='utf8mb4',
+        cursorclass=pymysql.cursors.DictCursor
+    )
+    mysql.autocommit = True
+    sqlite = sqlite3.connect('sqlite.db')
+    return filedb,pgsql, mysql, sqlite
+
+if __name__ == '__main__':
+    filedb,pgsql, mysql, sqlite = create_connection()
+    select_supply_center = sel.generate_select_test_supply_center()
+    select_client_enterprise = sel.generate_select_test_client_enterprise()
+    select_test_salesman = sel.generate_select_test_salesman()
+    select_test_product = sel.generate_select_test_product()
+    select_test_product_model = sel.generate_select_test_product_model()
+    select_test_contract = sel.generate_select_test_contract()
+    select_test_contract_content = sel.generate_select_test_contract_content()
+    update_test_supply_cente = upd.generate_update_test_supply_center()
+    update_test_client_enterprise = upd.generate_update_test_client_enterprise()
+    update_test_salesman = upd.generate_update_test_salesman()
+    update_test_product = upd.generate_update_test_product()
+    update_test_product_model = upd.generate_update_test_product_model()
+    update_test_contract = upd.generate_update_test_contract()
+    update_test_contract_content = upd.generate_update_test_contract_content()
+    delete_test = delt.generate_delete_test()
+
+    pgsql = pgsql.cursor()
+    mysql = mysql.cursor()
+
+
+    file_db_start = time.time()
+    with open('log.txt', 'a') as f:
+        f.write('Start testing...\n')
+        f.write('Start testing fileDB...\n')
+        f.write("Testing insert...\n")
+        f.write("Testing select...\n")
+    print('Start testing...')
+    print("Start testing fileDB...")
+    print("Testing insert...")
+    #imp.test_file_insert(filedb)
+    print("Testing select...")
+    sel.test_select(select_supply_center,select_client_enterprise,select_test_salesman,select_test_product,
+                    select_test_product_model,select_test_contract,select_test_contract_content,filedb,'fileDB')
+    with open('log.txt', 'a') as f:
+        f.write("Testing update...\n")
+    print("Testing update...")
+    upd.test_update(update_test_supply_cente,update_test_client_enterprise,update_test_salesman,update_test_product,
+                    update_test_product_model,update_test_contract,update_test_contract_content,filedb,'fileDB')
+    with open('log.txt', 'a') as f:
+        f.write("Testing delete...\n")
+    print("Testing delete...")
+    delt.test_delete(delete_test,filedb,'fileDB')
+    file_db_end = time.time()
+    with open('log.txt', 'a') as f:
+        f.write("Testing fileDB finished!\n")
+    print("Testing fileDB finished.")
+
+    with open('log.txt', 'a') as f:
+        f.write("Start testing postgresql...\n")
+    print("Start testing pgsql...")
+    pgsql_start = time.time()
+    with open('log.txt', 'a') as f:
+        f.write("Testing insert...\n")
+    print("Testing insert...")
+    imp.test_pgsql_insert(pgsql)
+    with open('log.txt', 'a') as f:
+        f.write("Testing select...\n")
+    print("Testing select...")
+    sel.test_select(select_supply_center,select_client_enterprise,select_test_salesman,select_test_product,
+                    select_test_product_model,select_test_contract,select_test_contract_content,pgsql,'pgsql')
+    with open('log.txt', 'a') as f:
+        f.write("Testing update...\n")
+    print("Testing update...")
+    upd.test_update(update_test_supply_cente,update_test_client_enterprise,update_test_salesman,update_test_product,
+                    update_test_product_model,update_test_contract,update_test_contract_content,pgsql,'pgsql')
+    with open('log.txt', 'a') as f:
+        f.write("Testing delete...\n")
+    print("Testing delete...")
+    delt.test_delete(delete_test,pgsql,'pgsql')
+    pgsql_end = time.time()
+
+    with open('log.txt', 'a') as f:
+        f.write("Testing pgsql finished.\n")
+    print("Testing pgsql finished.")
+
+    # print("Start testing mysql...")
+    # mysql_start = time.time()
+    # print("Testing insert...")
+    # imp.test_mysql_insert(mysql)
+    # print("Testing select...")
+    # sel.test_select(select_supply_center,select_client_enterprise,select_test_salesman,select_test_product,
+    #                 select_test_product_model,select_test_contract,select_test_contract_content,mysql,'mysql')
+    # print("Testing update...")
+    # upd.test_update(update_test_supply_cente,update_test_client_enterprise,update_test_salesman,update_test_product,
+    #                 update_test_product_model,update_test_contract,update_test_contract_content,mysql,'mysql')
+    # print("Testing delete...")
+    # delt.test_delete(delete_test,mysql,'mysql')
+    # mysql_end = time.time()
+    # print("Testing mysql finished.")
+
+    with open('log.txt', 'a') as f:
+        f.write("Start testing sqlite..\n")
+    print("Start testing sqlite...")
+    sqlite_start = time.time()
+    with open('log.txt', 'a') as f:
+        f.write("Testing insert...\n")
+    print("Testing insert...")
+    imp.test_sqlite_insert(sqlite)
+    with open('log.txt', 'a') as f:
+        f.write("Testing select...\n")
+    print("Testing select...")
+    sel.test_select(select_supply_center,select_client_enterprise,select_test_salesman,select_test_product,
+                    select_test_product_model,select_test_contract,select_test_contract_content,sqlite,'sqlite')
+    with open('log.txt', 'a') as f:
+        f.write("Testing update...\n")
+    print("Testing update...")
+    upd.test_update(update_test_supply_cente,update_test_client_enterprise,update_test_salesman,update_test_product,
+                    update_test_product_model,update_test_contract,update_test_contract_content,sqlite,'sqlite')
+    with open('log.txt', 'a') as f:
+        f.write("Testing delete...\n")
+    print("Testing delete...")
+    delt.test_delete(delete_test,sqlite,'sqlite')
+    sqlite_end = time.time()
+    with open('log.txt', 'a') as f:
+        f.write("Testing sqlite finished.\n")
+    print("Testing sqlite finished.")
+    with open('log.txt', 'a') as f:
+        f.write("Testing finished.\n")
+    print('Finished!')
+
+
+

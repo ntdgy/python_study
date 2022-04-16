@@ -3,10 +3,16 @@ import time
 
 def generate_delete_test()->list:
     delete_test = []
-    for i in range(0, 10):
+    numset = set()
+    for i in range(0, 1000):
+        while True:
+            random_num = random.randint(0, 1000000)
+            if random_num not in numset:
+                numset.add(random_num)
+                break
         delete_test.append('''
         delete from contract_content where id = %d;
-        '''%(random.randint(1, 100000)))
+        '''%random_num)
     return delete_test
 
 def test_delete( delete_test:list,cursor,string:str):

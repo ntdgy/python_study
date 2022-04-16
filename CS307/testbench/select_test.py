@@ -31,10 +31,11 @@ product_name = ['nuoaxkqgcvt cfhrtbemaix','mzftpibjwo nzsgeyloru','cftxq ivajf',
 product_model = ['yhzqi yzhdt','sxvwgua iyjxnwf','vwlybetukzcqn cvyirmsnebqod',
                  'ijkvtenzscupxq lktjzofacgxwen','ryeohdupljb usfbaohzyvx','mdlycxjvkzrpqb cqeflukpznxtgy',
                  'uonhcjasbypvxwe uweajmrlihgotbx','czhsruvj hqxrgudl','xzkbjvrqgdlmco ifqtgmzhuewkjc']
+#8081 selections in 7 tables
 
 def generate_select_test_supply_center() -> list:
     select_test = []
-    for i1 in range(10):
+    for i1 in range(1000):
         select_test.append('''
         SELECT * FROM supply_center WHERE id = %d;
         ''' % random.randint(1, 93632))
@@ -46,7 +47,7 @@ def generate_select_test_supply_center() -> list:
 
 def generate_select_test_client_enterprise() -> list:
     select_test = []
-    for i1 in range(10):
+    for i1 in range(1000):
         select_test.append('''
         SELECT * FROM client_enterprise WHERE id = %d;
         ''' % random.randint(1, 275302))
@@ -58,27 +59,27 @@ def generate_select_test_client_enterprise() -> list:
 
 def generate_select_test_salesman() -> list:
     select_test = []
-    for i1 in range(10):
+    for i1 in range(1000):
         select_test.append('''
-        SELECT * FROM client WHERE id = %d;
+        SELECT * FROM salesman WHERE id = %d;
         ''' % random.randint(1, 972749))
     for i in salesman_name:
         select_test.append('''
-        SELECT * FROM client WHERE name = '%s';
+        SELECT * FROM salesman WHERE name = '%s';
         ''' % i)
     for i in salesman_number:
         select_test.append('''
-        SELECT * FROM client WHERE number = '%s';
+        SELECT * FROM salesman WHERE number = '%s';
         ''' % i)
     for i in salesman_phone:
         select_test.append('''
-        SELECT * FROM client WHERE mobile_number = '%s';
+        SELECT * FROM salesman WHERE mobile_number = '%s';
         ''' % i)
     return select_test
 
 def generate_select_test_product() -> list:
     select_test = []
-    for i1 in range(10):
+    for i1 in range(1000):
         select_test.append('''
         SELECT * FROM product WHERE id = %d;
         ''' % random.randint(1, 962787))
@@ -94,11 +95,11 @@ def generate_select_test_product() -> list:
 
 def generate_select_test_product_model() -> list:
     select_test = []
-    for i1 in range(10):
+    for i1 in range(1000):
         select_test.append('''
         SELECT * FROM product_model WHERE id = %d;
         ''' % random.randint(1, 3597940))
-    for i1 in range(10):
+    for i1 in range(1000):
         select_test.append('''
         SELECT * FROM product_model WHERE product_id = %d;
         ''' % random.randint(1, 962787))
@@ -110,7 +111,7 @@ def generate_select_test_product_model() -> list:
 
 def generate_select_test_contract() -> list:
     select_test = []
-    for i1 in range(10):
+    for i1 in range(1000):
         select_test.append('''
         SELECT * FROM contract WHERE id = %d;
         ''' % random.randint(1, 400000))
@@ -118,7 +119,7 @@ def generate_select_test_contract() -> list:
 
 def generate_select_test_contract_content() -> list:
     select_test = []
-    for i1 in range(10):
+    for i1 in range(1000):
         select_test.append('''
         SELECT * FROM contract_content WHERE id = %d;
         ''' % random.randint(1, 3597940))

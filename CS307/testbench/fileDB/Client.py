@@ -37,6 +37,10 @@ class DBMSClient(object):
         self.p.start()
         pass
 
+    def execute(self, sql: str):
+        self.pa.send(sql)
+        return self.pa.recv()
+
     def excuse(self, sql: str):
         self.pa.send(sql)
         return self.pa.recv()
@@ -49,10 +53,10 @@ class DBMSClient(object):
 
 if __name__ == '__main__':
     client = DBMSClient('anshang', '123456')
-    client.excuse("insert   into supply_center(id, director_name)    values(2, 'name');")
-    client.excuse("insert   into supply_center(id, director_name)    values(2, 'test');")
-    client.excuse("insert   into supply_center(id, director_name, supply_center)    values(5, 'test', 'center');")
-    client.excuse("update supply_center set id = 5, director_name = 'jbjbjb' where id = 2;")
+    client.execute("insert   into supply_center(id, director_name)    values(2, 'name');")
+    client.execute("insert   into supply_center(id, director_name)    values(2, 'test');")
+    client.execute("insert   into supply_center(id, director_name, supply_center)    values(5, 'test', 'center');")
+    client.execute("update supply_center set id = 5, director_name = 'jbjbjb' where id = 2;")
     print(
-        client.excuse("select * from supply_center where id = '2' and director_name = 'test' or supply_center = 'center';"))
+        client.execute("select * from supply_center where id = '2' and director_name = 'test' or supply_center = 'center';"))
     client.close()

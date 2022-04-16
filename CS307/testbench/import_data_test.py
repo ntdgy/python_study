@@ -54,7 +54,7 @@ def test_file_insert(a):
     end1 = time.time()
     print("File DB: ", end1 - start1)
 
-def test_pgsql_insert(connection):
+def test_pgsql_insert(cursor):
     # connection = psycopg2.connect(
     #     host="42.194.178.20",
     #     port="5432",
@@ -69,8 +69,6 @@ def test_pgsql_insert(connection):
     #     user="dgy",
     #     password='xtny38206',
     # )
-    connection.autocommit = True
-    cursor = connection.cursor()
 
     cursor.execute(innitial.pgsql)
 
@@ -126,7 +124,7 @@ def test_pgsql_insert(connection):
     end1 = time.time()
     print("PGSQL: ", end1 - start1)
 
-def test_mysql_insert(connection):
+def test_mysql_insert(cursor):
     # connection = pymysql.connect(
     #     host="localhost",
     #     port=3306,
@@ -136,8 +134,6 @@ def test_mysql_insert(connection):
     #     charset='utf8mb4',
     #     cursorclass=pymysql.cursors.DictCursor
     # )
-    connection.autocommit = True
-    cursor = connection.cursor()
 
     cursor.execute(innitial.mysql)
 
@@ -195,7 +191,7 @@ def test_mysql_insert(connection):
 
 def test_sqlite_insert(connection):
     # connection = sqlite3.connect('sqlite.db')
-    connection.execute(innitial.sqlite)
+    # connection.execute(innitial.sqlite)
 
     start1 = time.time()
     start = time.time()

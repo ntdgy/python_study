@@ -13,24 +13,26 @@ def create_connection():
     pgsql = psycopg2.connect(
         host="localhost",
         port="5432",
-        database="project1_tesk4",
+        database="task4_test",
         user="dgy",
         password='xtny38206',
     )
+    pgsql.autocommit = True
     mysql = pymysql.connect(
-        host="localhost",
+        host="42.194.178.20",
         port=3306,
         user="dgy",
         password='xtny38206',
-        database="project1_tesk4",
+        database="cs307",
         charset='utf8mb4',
         cursorclass=pymysql.cursors.DictCursor
     )
+    mysql.autocommit = True
     sqlite = sqlite3.connect('sqlite.db')
-    return filedb, pgsql, mysql, sqlite
+    return filedb,pgsql, mysql, sqlite
 
 if __name__ == '__main__':
-    filedb, pgsql, mysql, sqlite = create_connection()
+    filedb,pgsql, mysql, sqlite = create_connection()
     select_supply_center = sel.generate_select_test_supply_center()
     select_client_enterprise = sel.generate_select_test_client_enterprise()
     select_test_salesman = sel.generate_select_test_salesman()
@@ -51,26 +53,26 @@ if __name__ == '__main__':
     mysql = mysql.cursor()
 
 
-    file_db_start = time.time()
-    print('Start testing...')
-    print("Start testing fileDB...")
-    print("Testing insert...")
-    imp.test_file_insert(filedb)
-    print("Testing select...")
-    sel.test_select(select_supply_center,select_client_enterprise,select_test_salesman,select_test_product,
-                    select_test_product_model,select_test_contract,select_test_contract_content,filedb,'fileDB')
-    print("Testing update...")
-    upd.test_update(update_test_supply_cente,update_test_client_enterprise,update_test_salesman,update_test_product,
-                    update_test_product_model,update_test_contract,update_test_contract_content,filedb,'fileDB')
-    print("Testing delete...")
-    delt.test_delete(delete_test,filedb,'fileDB')
-    file_db_end = time.time()
-    print("Testing fileDB finished.")
+    # file_db_start = time.time()
+    # print('Start testing...')
+    # print("Start testing fileDB...")
+    # print("Testing insert...")
+    # #imp.test_file_insert(filedb)
+    # print("Testing select...")
+    # sel.test_select(select_supply_center,select_client_enterprise,select_test_salesman,select_test_product,
+    #                 select_test_product_model,select_test_contract,select_test_contract_content,filedb,'fileDB')
+    # print("Testing update...")
+    # upd.test_update(update_test_supply_cente,update_test_client_enterprise,update_test_salesman,update_test_product,
+    #                 update_test_product_model,update_test_contract,update_test_contract_content,filedb,'fileDB')
+    # print("Testing delete...")
+    # delt.test_delete(delete_test,filedb,'fileDB')
+    # file_db_end = time.time()
+    # print("Testing fileDB finished.")
 
     print("Start testing pgsql...")
     pgsql_start = time.time()
-    print("Testing insert...")
-    imp.test_pgsql_insert(pgsql)
+    #print("Testing insert...")
+    #imp.test_pgsql_insert(pgsql)
     print("Testing select...")
     sel.test_select(select_supply_center,select_client_enterprise,select_test_salesman,select_test_product,
                     select_test_product_model,select_test_contract,select_test_contract_content,pgsql,'pgsql')
@@ -82,24 +84,24 @@ if __name__ == '__main__':
     pgsql_end = time.time()
     print("Testing pgsql finished.")
 
-    print("Start testing mysql...")
-    mysql_start = time.time()
-    print("Testing insert...")
-    imp.test_mysql_insert(mysql)
-    print("Testing select...")
-    sel.test_select(select_supply_center,select_client_enterprise,select_test_salesman,select_test_product,
-                    select_test_product_model,select_test_contract,select_test_contract_content,mysql,'mysql')
-    print("Testing update...")
-    upd.test_update(update_test_supply_cente,update_test_client_enterprise,update_test_salesman,update_test_product,
-                    update_test_product_model,update_test_contract,update_test_contract_content,mysql,'mysql')
-    print("Testing delete...")
-    delt.test_delete(delete_test,mysql,'mysql')
-    mysql_end = time.time()
-    print("Testing mysql finished.")
+    # print("Start testing mysql...")
+    # mysql_start = time.time()
+    # print("Testing insert...")
+    # imp.test_mysql_insert(mysql)
+    # print("Testing select...")
+    # sel.test_select(select_supply_center,select_client_enterprise,select_test_salesman,select_test_product,
+    #                 select_test_product_model,select_test_contract,select_test_contract_content,mysql,'mysql')
+    # print("Testing update...")
+    # upd.test_update(update_test_supply_cente,update_test_client_enterprise,update_test_salesman,update_test_product,
+    #                 update_test_product_model,update_test_contract,update_test_contract_content,mysql,'mysql')
+    # print("Testing delete...")
+    # delt.test_delete(delete_test,mysql,'mysql')
+    # mysql_end = time.time()
+    # print("Testing mysql finished.")
 
     print("Start testing sqlite...")
     sqlite_start = time.time()
-    print("Testing insert...")
+    #print("Testing insert...")
     imp.test_sqlite_insert(sqlite)
     print("Testing select...")
     sel.test_select(select_supply_center,select_client_enterprise,select_test_salesman,select_test_product,

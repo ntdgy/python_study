@@ -3,8 +3,10 @@
 # @Author: Anshang
 # @File: Server.py
 # @Software: PyCharm
-
+import os.path
 import socketserver
+import threading
+
 import fileDBMS
 import base64
 import json
@@ -68,8 +70,9 @@ def login(info):
 process_list = []  # 内含一个元组。0为通信pipe，1为sql语句
 
 
-def manager(list__):
+def manager(list__, cond: threading.Condition):
     global stop_p
+    cond.acquire()
     while True:
         if len(list__) != 0:
             list__[0][0].send(database.excuse(list__[0][1]))
@@ -78,11 +81,15 @@ def manager(list__):
         else:
             if stop_p:
                 break
+            cond.wait()
 
 
 def getSQL(sql):
     pa, child = Pipe()
     process_list.append((child, sql))
+    condition.acquire()
+    condition.notify()
+    condition.release()
     rec = pa.recv()
     pa.close()
     return rec
@@ -92,10 +99,26 @@ def run_forever(server_forever):
     server_forever.serve_forever()
 
 
+def register(info: str, user={}):
+    infos = info.split(' ')
+    username = infos[1]
+    password = infos[2]
+    permission = int(infos[3])
+    if os.path.exists('users.json'):
+        with open('users.json', 'r') as f:
+            user = json.loads(f.read())
+    user[username] = {}
+    user[username]['Password'] = password
+    user[username]['Permission'] = permission
+    with open('users.json', 'w') as f:
+        f.write(json.dumps(user))
+    print(f'user "{username}" has been created with permission level {permission}')
+
 database = fileDBMS.DBMS('test.json')
 stop_p = False
 if __name__ == '__main__':
-    p = Thread(target=manager, args=(process_list, ))
+    condition = threading.Condition()
+    p = Thread(target=manager, args=(process_list, condition, ))
     p.start()
     ip_bind = ("127.0.0.1", 9900)
     server = socketserver.ThreadingTCPServer(ip_bind, MyTcpServerClass)
@@ -103,11 +126,21 @@ if __name__ == '__main__':
     t = Thread(target=run_forever, args=(server, ))
     t.start()
     while True:
-        e = input('exit() to end')
+        e = input('help to get help\n')
+        if e == 'help':
+            print()
+            print('exit() to quit')
+            print('register username password permission to register a new user')
+            print()
+        if e.startswith('register'):
+            register(e)
         if e == 'exit()':
             database.close()
             server.shutdown()
             server.server_close()
             stop_p = True
+            condition.acquire()
+            condition.notify()
+            condition.release()
             exit()
 

@@ -1,11 +1,6 @@
-import psycopg2
-import csv
 import psycopg2.extras
-import String
 import time
-import pandas as pd
 import csvMaker
-import csvtest
 
 
 
@@ -19,7 +14,7 @@ import csvtest
 connection = psycopg2.connect(
     host="localhost",
     port="5432",
-    database="project1",
+    database="task4_test",
     user="dgy",
     password='xtny38206',
 )

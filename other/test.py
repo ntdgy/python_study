@@ -11,5 +11,8 @@
 # print(a)
 import numpy as np
 import csv
-
+count = 0
+with open('test.txt', 'r',encoding='utf-8') as f:
+    a = f.readlines()
+    print(len(a))
 

@@ -4,17 +4,10 @@ import csvMaker
 
 
 
-# connection = psycopg2.connect(
-#     host="42.194.178.20",
-#     port="5432",
-#     database="project1",
-#     user="checker",
-#     password='xtny38206',
-# )
 connection = psycopg2.connect(
     host="localhost",
     port="5432",
-    database="task4_test",
+    database="project1",
     user="dgy",
     password='xtny38206',
 )
@@ -58,14 +51,7 @@ def pre_process(file_name):
     cursor.copy_from(contract_content, 'contract_content', sep='|')
     print("contract_content time is %s seconds ---" % (time.time() - start_time))
     print("total import time is %s seconds ---" % (time.time() - time1))
-    #print(client_enterprise)
-    # copy_from_test(client_enterprise, 'client_enterprise')
-    # copy_from_test(director, 'director')
-    #copy_from_test(salesman, 'salesman')
-    #copy_from_test(product, 'product')
-    # copy_from_test(product_model, 'product_model')
-    # copy_from_test(contract, 'contract')
-    # copy_from_test(contract_content, 'contract_content')
+
 
 
 
@@ -76,8 +62,8 @@ def copy_from_test(file_name, table_name):
     connection.commit()
 
 start = time.time()
-pre_process('data.csv')
-#pre_process('contract_info.csv')
-#copy_from_test('contract_info.csv','testdata')
+# pre_process('data.csv')
+pre_process('contract_info.csv')
+
 end = time.time()
 print('total time:'+str(end - start))

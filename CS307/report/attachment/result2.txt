@@ -1,0 +1,95 @@
+Start testing...
+Start testing fileDB...
+Testing insert...
+File DB Supply Center:  2.6030917167663574
+File DB Client Enterprise:  114.94985699653625
+File DB Salesman:  25.792115926742554
+File DB Product:  21.930269241333008
+File DB Product Model:  51.44455647468567
+File DB Contract:  253.3023190498352
+File DB Contract Content:  2400.753942489624
+File DB:  2870.7771365642548
+Testing select...
+fileDB select_supply_center: 0.212050199508667
+fileDB select_client_enterprise: 0.21189594268798828
+fileDB select_salesman: 0.21689724922180176
+fileDB select_product: 0.2137606143951416
+fileDB select_product_model: 0.4244074821472168
+fileDB select_contract: 0.21044683456420898
+fileDB select_contract_content: 0.21042108535766602
+fileDB select_all: 1.7005226612091064
+Testing update...
+fileDB update_supply_center: 0.20968127250671387
+fileDB update_client_enterprise: 0.21025729179382324
+fileDB update_salesman: 0.20977115631103516
+fileDB update_product: 0.20956206321716309
+fileDB update_product_model: 0.20995426177978516
+fileDB update_contract: 0.20966196060180664
+fileDB update_contract_content: 0.2112276554107666
+fileDB update_all: 1.4705636501312256
+Testing delete...
+fileDB delete_all: 0.21078205108642578
+Testing fileDB finished.
+Start testing pgsql...
+Testing insert...
+PGSQL Supply Center:  4.394753694534302
+PGSQL Client Enterprise:  209.51284956932068
+PGSQL Salesman:  46.16214299201965
+PGSQL Product:  37.97132873535156
+PGSQL Product Model:  91.87710499763489
+PGSQL Contract:  482.89940214157104
+PGSQL Contract Content:  3996.3029911518097
+PGSQL:  4869.122889518738
+Testing select...
+pgsql select_supply_center: 0.08642292022705078
+pgsql select_client_enterprise: 0.09994363784790039
+pgsql select_salesman: 0.16108202934265137
+pgsql select_product: 0.1428229808807373
+pgsql select_product_model: 11.729453086853027
+pgsql select_contract: 0.09595060348510742
+pgsql select_contract_content: 0.13645195960998535
+pgsql select_all: 12.452996969223022
+Testing update...
+pgsql update_supply_center: 0.10614228248596191
+pgsql update_client_enterprise: 0.395571231842041
+pgsql update_salesman: 0.10909056663513184
+pgsql update_product: 0.10877394676208496
+pgsql update_product_model: 0.09044003486633301
+pgsql update_contract: 0.4404716491699219
+pgsql update_contract_content: 0.3882875442504883
+pgsql update_all: 1.6394286155700684
+Testing delete...
+pgsql delete_all: 0.3697550296783447
+Testing pgsql finished.
+Start testing sqlite...
+Testing insert...
+SQLITE Supply Center:  0.4117896556854248
+SQLITE Client Enterprise:  22.116774320602417
+SQLITE Salesman:  5.107264518737793
+SQLITE Product:  3.4192230701446533
+SQLITE Product Model:  8.22893500328064
+SQLITE Contract:  42.75534200668335
+SQLITE Contract Content:  551.5029518604279
+SQLITE:  633.5428650379181
+Testing select...
+sqlite select_supply_center: 0.008104801177978516
+sqlite select_client_enterprise: 0.016170501708984375
+sqlite select_salesman: 0.06943082809448242
+sqlite select_product: 0.052953481674194336
+sqlite select_product_model: 8.00947904586792
+sqlite select_contract: 0.013679742813110352
+sqlite select_contract_content: 0.018566608428955078
+sqlite select_all: 8.188764572143555
+Testing update...
+sqlite update_supply_center: 0.007258415222167969
+sqlite update_client_enterprise: 0.0220639705657959
+sqlite update_salesman: 0.0062792301177978516
+sqlite update_product: 0.0063250064849853516
+sqlite update_product_model: 0.005953073501586914
+sqlite update_contract: 0.011618852615356445
+sqlite update_contract_content: 0.011748790740966797
+sqlite update_all: 0.071533203125
+Testing delete...
+sqlite delete_all: 0.012247323989868164
+Testing sqlite finished.
+Finished!

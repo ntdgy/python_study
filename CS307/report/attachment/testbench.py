@@ -7,6 +7,7 @@ import select_test as sel
 import update_test as upd
 import delete_test as delt
 
+
 def create_connection():
     filedb = fileDB.DBMSClient('anshang', '123456')
     pgsql = psycopg2.connect(
@@ -18,10 +19,11 @@ def create_connection():
     )
     pgsql.autocommit = True
     sqlite = sqlite3.connect('sqlite.db')
-    return filedb,pgsql, sqlite
+    return filedb, pgsql, sqlite
+
 
 if __name__ == '__main__':
-    filedb,pgsql, sqlite = create_connection()
+    filedb, pgsql, sqlite = create_connection()
     select_supply_center = sel.generate_select_test_supply_center()
     select_client_enterprise = sel.generate_select_test_client_enterprise()
     select_test_salesman = sel.generate_select_test_salesman()
@@ -40,20 +42,19 @@ if __name__ == '__main__':
 
     pgsql = pgsql.cursor()
 
-
     file_db_start = time.time()
     print('Start testing...')
     print("Start testing fileDB...")
     print("Testing insert...")
     imp.test_file_insert(filedb)
     print("Testing select...")
-    sel.test_select(select_supply_center,select_client_enterprise,select_test_salesman,select_test_product,
-                    select_test_product_model,select_test_contract,select_test_contract_content,filedb,'fileDB')
+    sel.test_select(select_supply_center, select_client_enterprise, select_test_salesman, select_test_product,
+                    select_test_product_model, select_test_contract, select_test_contract_content, filedb, 'fileDB')
     print("Testing update...")
-    upd.test_update(update_test_supply_cente,update_test_client_enterprise,update_test_salesman,update_test_product,
-                    update_test_product_model,update_test_contract,update_test_contract_content,filedb,'fileDB')
+    upd.test_update(update_test_supply_cente, update_test_client_enterprise, update_test_salesman, update_test_product,
+                    update_test_product_model, update_test_contract, update_test_contract_content, filedb, 'fileDB')
     print("Testing delete...")
-    delt.test_delete(delete_test,filedb,'fileDB')
+    delt.test_delete(delete_test, filedb, 'fileDB')
     file_db_end = time.time()
     print("Testing fileDB finished.")
 
@@ -62,33 +63,29 @@ if __name__ == '__main__':
     print("Testing insert...")
     imp.test_pgsql_insert(pgsql)
     print("Testing select...")
-    sel.test_select(select_supply_center,select_client_enterprise,select_test_salesman,select_test_product,
-                    select_test_product_model,select_test_contract,select_test_contract_content,pgsql,'pgsql')
+    sel.test_select(select_supply_center, select_client_enterprise, select_test_salesman, select_test_product,
+                    select_test_product_model, select_test_contract, select_test_contract_content, pgsql, 'pgsql')
     print("Testing update...")
-    upd.test_update(update_test_supply_cente,update_test_client_enterprise,update_test_salesman,update_test_product,
-                    update_test_product_model,update_test_contract,update_test_contract_content,pgsql,'pgsql')
+    upd.test_update(update_test_supply_cente, update_test_client_enterprise, update_test_salesman, update_test_product,
+                    update_test_product_model, update_test_contract, update_test_contract_content, pgsql, 'pgsql')
     print("Testing delete...")
-    delt.test_delete(delete_test,pgsql,'pgsql')
+    delt.test_delete(delete_test, pgsql, 'pgsql')
     pgsql_end = time.time()
     print("Testing pgsql finished.")
-
 
     print("Start testing sqlite...")
     sqlite_start = time.time()
     print("Testing insert...")
     imp.test_sqlite_insert(sqlite)
     print("Testing select...")
-    sel.test_select(select_supply_center,select_client_enterprise,select_test_salesman,select_test_product,
-                    select_test_product_model,select_test_contract,select_test_contract_content,sqlite,'sqlite')
+    sel.test_select(select_supply_center, select_client_enterprise, select_test_salesman, select_test_product,
+                    select_test_product_model, select_test_contract, select_test_contract_content, sqlite, 'sqlite')
     print("Testing update...")
-    upd.test_update(update_test_supply_cente,update_test_client_enterprise,update_test_salesman,update_test_product,
-                    update_test_product_model,update_test_contract,update_test_contract_content,sqlite,'sqlite')
+    upd.test_update(update_test_supply_cente, update_test_client_enterprise, update_test_salesman, update_test_product,
+                    update_test_product_model, update_test_contract, update_test_contract_content, sqlite, 'sqlite')
     print("Testing delete...")
-    delt.test_delete(delete_test,sqlite,'sqlite')
+    delt.test_delete(delete_test, sqlite, 'sqlite')
     sqlite_end = time.time()
     print("Testing sqlite finished.")
 
     print('Finished!')
-
-
-
